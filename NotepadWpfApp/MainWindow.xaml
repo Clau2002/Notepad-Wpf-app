@@ -1,0 +1,76 @@
+﻿<Window x:Class="NotepadWpfApp.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:NotepadWpfApp"
+        mc:Ignorable="d"
+        Title="Notepad++" Height="600" Width="900"
+        WindowStartupLocation="CenterScreen"
+        WindowStyle="SingleBorderWindow"
+        Background="Transparent"
+        ResizeMode="NoResize">
+
+    <Window.CommandBindings>
+        <CommandBinding Command="New" CanExecute="CommonCommandBinding_CanExecute" />
+        <CommandBinding Command="Open" CanExecute="CommonCommandBinding_CanExecute" />
+        <CommandBinding Command="Save" CanExecute="CommonCommandBinding_CanExecute" />
+        <CommandBinding Command="SaveAs" CanExecute="CommonCommandBinding_CanExecute"/>
+        <CommandBinding Command="Replace" CanExecute="CommonCommandBinding_CanExecute"/>
+        <CommandBinding Command="Delete" CanExecute="CommonCommandBinding_CanExecute"/>
+        <CommandBinding Command="Find" CanExecute="CommonCommandBinding_CanExecute"/>
+        <CommandBinding Command="Close" CanExecute="CommonCommandBinding_CanExecute"/>
+        <CommandBinding Command="Help" CanExecute="CommonCommandBinding_CanExecute"/>
+    </Window.CommandBindings>
+
+    <Window.DataContext>
+        <local:TabsCollection/>
+    </Window.DataContext>
+    
+    <Border CornerRadius="0 0 5 5">
+        <Border.Background>
+            <LinearGradientBrush StartPoint="0.2, 0" EndPoint="0.6, 1">
+                <GradientStop Color="#030E4F" Offset="0"/>
+                <GradientStop Color="#6dd47e" Offset="1"/>
+            </LinearGradientBrush>
+        </Border.Background>
+
+        <Grid x:Name="MyGrid">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="70"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="540" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <DockPanel x:Name="MyDockPanel" Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="0" Margin="4">
+                <ToolBarTray DockPanel.Dock="Top" Background="Transparent">
+                    <ToolBar Name="mainToolbar">
+                        <Button Command="New" Content="New" Click="btnAddNewTab_Click"/>
+                        <Button Command="Open" Content="Open" Click="btnOpenFile_Click"/>
+                        <Button Command="Save" Content="Save" Click="btnAutoSave_Click"/>
+                        <Button Command="Cut" Content="Cut" />
+                        <Button Command="Copy" Content="Copy" />
+                        <Button Command="Paste" Content="Paste" />
+                        <Button Command="SaveAs" Content="SaveAs" Click="btnSaveAsFile_Click"/>
+                        <Button Content="Replace" Command="Replace" Click="btnReplace_Click"/>
+                        <Button Content="ReplaceAll" Command="Delete" Click="btnReplaceAll_Click"/>
+                        <Button Command="Find" Content="Find" Click="btnFind_Click"/>
+                        <Button x:Name="CloseButton" Command="Close" Content="Close" Click="btnCloseTab_Click"/>
+                        <Button x:Name="HelpButton" Command="Help" Content="Help" Click="btnHelp_Click"/>
+                    </ToolBar>
+                </ToolBarTray>
+
+                <TreeView x:Name="treeView" TreeViewItem.Expanded="TreeViewItem_Expanded" DockPanel.Dock="Left" BorderBrush="Transparent" BorderThickness="1" Margin="0 0 1 0">
+                </TreeView>
+                
+                <TabControl x:Name="TabControl" DockPanel.Dock="Top">
+                </TabControl>
+            </DockPanel>
+        </Grid>
+    </Border>
+</Window>
+    
